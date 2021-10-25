@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { EventService } from "./shared/event.service";
 
 @Component({
   selector: 'events-list',
@@ -6,25 +7,19 @@ import { Component } from "@angular/core";
   <div>
     <h1>Upcoming Angular Events</h1>
     <hr/>
-    
-    <event-thumbnail #thumbnail [event]="event1"></event-thumbnail>
+    <div class="row">
+      <div *ngFor="let event of events" class="col-md-5">
+        <event-thumbnail [event]="event"></event-thumbnail>
+      </div>
+    </div>
   </div>
   `
 })
+
 export class EventsListComponent {
-  event1 = {
-    id: 1,
-    name: 'Angular Connect',
-    date: '9/26/2022',
-    time: '10:00 am',
-    price: 59.99,
-    imageUrl: '/assets/images/angulatconnect-shield.png',
-    location: {
-      address: '345 Bleaker Beaker',
-      city: 'London',
-      country: 'England'
-    }
+  events:any[]
+  
+  constructor(private eventService: EventService) {
+    this.events = this.eventService.getEvents()
   }
-
-
 }
