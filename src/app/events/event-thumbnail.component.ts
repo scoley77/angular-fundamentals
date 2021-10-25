@@ -22,6 +22,4 @@ import { Component, Input } from "@angular/core";
 export class EventThumbnailComponent {
   @Input() event:any;
 
-  
-
 }
