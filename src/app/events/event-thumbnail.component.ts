@@ -1,11 +1,13 @@
 import { Component, Input } from "@angular/core";
 import { IEvent } from "./shared/event.model";
+import { AuthService } from "../user/auth.service";
 
 @Component({
   selector: 'event-thumbnail',
   template: `
   <div [routerLink]="['/events', event.id]" class="well hoverwell thumbnail">
     <h2>{{event.name}}</h2>
+    <a *ngIf="auth.isAuthenticated()" [routerLink]="['/events/edit-event', event.id]"><u>Edit</u></a>
     <div>Date: {{event.date}}</div>
     <div>Time: {{event.time}}</div>
     <div>Price: \${{event.price}}</div>
@@ -26,5 +28,7 @@ import { IEvent } from "./shared/event.model";
 })
 export class EventThumbnailComponent {
   @Input() event!:IEvent
-
+  constructor(public auth:AuthService) {
+    
+  }
 }

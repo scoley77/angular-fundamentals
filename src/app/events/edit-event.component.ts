@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { FormGroup } from '@angular/forms'
-import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { ActivatedRoute, Router } from "@angular/router";
 import { EventService } from "./shared";
 
 
 @Component({
-  templateUrl: './create-event.component.html',
+  templateUrl: './edit-event.component.html',
   styles: [`
     em { float:right; color: #E05C65; padding-left: 10px; }
     .error input { background-color: #ffff85; }
@@ -16,12 +16,16 @@ import { EventService } from "./shared";
     .btn-primary { margin-right: 10px; }
   `]
 })
-export class CreateEventComponent {
+export class EditEventComponent implements OnInit {
   isDirty:boolean = true
-  newEventForm!:FormGroup
-  newEvent:any
-  constructor(private router:Router, private eventService:EventService){
+  editEventForm!:FormGroup
+  event:any
+  constructor(private router:Router, private eventService:EventService, private route:ActivatedRoute){
 
+  }
+
+  ngOnInit() {
+    this.event = this.eventService.getEvent(+this.route.snapshot.params['id'])
   }
   
   

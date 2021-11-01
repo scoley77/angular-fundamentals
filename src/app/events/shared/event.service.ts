@@ -14,6 +14,12 @@ export class EventService {
   getEvent(id:number) {
     return EVENTS.find(event => event.id === id)
   }
+
+  saveEvent(event:any) {
+    event.id = String(Date.now())
+    event.session = []
+    EVENTS.push(event)
+  }
 }
 
 
